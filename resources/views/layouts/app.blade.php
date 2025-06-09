@@ -10,6 +10,10 @@
 
     <!-- AOS CSS -->
     <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
 
     <style>
         body {
@@ -125,6 +129,54 @@
             <input class="form-control me-2" type="search" name="search" placeholder="Поиск товаров..." aria-label="Поиск" value="{{ request('search') }}">
             <button class="btn btn-primary" type="submit">Найти</button>
         </form>
+
+        @php
+            $cart = session()->get('cart', []);
+            $cartCount = array_sum(array_column($cart, 'quantity'));
+        @endphp
+
+        <a href="{{ route('cart.index') }}" class="btn btn-outline-secondary position-relative ms-3">
+            🛒
+            @if($cartCount > 0)
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                    {{ $cartCount }}
+                </span>
+            @endif
+        </a>
+
+        <!-- User dropdown -->
+        <div class="dropdown ms-3">
+            @auth
+                <!-- Пользователь авторизован -->
+                <button class="btn btn-outline-secondary rounded-pill px-3 dropdown-toggle" type="button" id="userMenuButton" data-bs-toggle="dropdown" aria-expanded="false" style="min-width: 120px;">
+                    {{ Auth::user()->name }}
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenuButton" style="min-width: 160px;">
+                    <li>
+                        <a class="dropdown-item" href="{{ route('profile') }}">Профиль</a>
+                    </li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li>
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <button type="submit" class="dropdown-item">Выйти</button>
+                        </form>
+                    </li>
+                </ul>
+            @else
+                <!-- Гость -->
+                <button class="btn btn-outline-secondary rounded-circle p-2 dropdown-toggle" type="button" id="userMenuButton" data-bs-toggle="dropdown" aria-expanded="false" style="width: 40px; height: 40px;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+                        <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                        <path d="M2 14s-1 0-1-1 1-4 7-4 7 3 7 4-1 1-1 1H2z"/>
+                    </svg>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenuButton" style="min-width: 160px;">
+                    <li><a class="dropdown-item" href="{{ route('login') }}">Вход</a></li>
+                    <li><a class="dropdown-item" href="{{ route('register') }}">Регистрация</a></li>
+                </ul>
+            @endauth
+        </div>
     </div>
 </nav>
 

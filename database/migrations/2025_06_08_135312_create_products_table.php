@@ -12,16 +12,13 @@ return new class extends Migration
             $table->id();
             $table->foreignId('category_id')->constrained()->onDelete('cascade');
             $table->string('name');
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->decimal('price', 10, 2);
             $table->string('image')->nullable();
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('products');

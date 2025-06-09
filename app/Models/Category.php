@@ -7,15 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
-    // Чтобы использовать slug в маршрутах
-    public function getRouteKeyName()
-    {
-        return 'slug';
-    }
+    protected $fillable = ['name', 'slug'];
 
-    // Связь с товарами
+    // Для связи с продуктами (если нужно)
     public function products()
     {
         return $this->hasMany(Product::class);
     }
 }
+

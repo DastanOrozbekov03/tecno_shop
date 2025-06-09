@@ -1,6 +1,5 @@
 <?php
 
-// app/Http/Controllers/SiteController.php
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -13,7 +12,7 @@ class SiteController extends Controller
     {
         $query = Product::query();
 
-        // Поиск по имени
+        // Поиск по имени продукта
         if ($request->filled('search')) {
             $query->where('name', 'like', '%' . $request->search . '%');
         }
@@ -26,15 +25,18 @@ class SiteController extends Controller
             });
         }
 
-        return view('home', [
-            'products' => $query->paginate(20)->withQueryString(),
-            'categories' => Category::all()
-        ]);
+        // Получаем все категории для меню
+        $categories = Category::all();
+
+        // Пагинация продуктов
+        $products = $query->paginate(20)->withQueryString();
+
+        return view('home', compact('products', 'categories'));
     }
 
     public function show($id)
     {
         $product = Product::findOrFail($id);
-        return view('product', compact('product'));
+        return view('products.product', compact('product'));
     }
 }

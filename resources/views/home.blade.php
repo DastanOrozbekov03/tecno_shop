@@ -25,7 +25,7 @@
                        class="product-card text-decoration-none text-dark w-100">
                         <img src="{{ $product->image_url }}" alt="{{ $product->name }}" class="product-image open-modal" data-img="{{ $product->image_url }}" />
                         <div class="product-info">
-                            <div class="product-title">{{ Str::limit($product->name, 60) }}</div>
+                            <div class="product-title">{{ \Illuminate\Support\Str::limit($product->name, 60) }}</div>
                             <div class="product-price">{{ number_format($product->price, 0, '', ' ') }} сом</div>
                         </div>
                     </a>
@@ -44,35 +44,45 @@
             <img id="modalImage" src="" alt="Увеличенное изображение">
         </div>
     </div>
-
 @endsection
 
 @section('scripts')
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const modal = document.getElementById('imageModal');
-            const modalImage = document.getElementById('modalImage');
+            const btn = document.getElementById('addToCartBtn');
+            const quantityInput = document.getElementById('quantity');
+            const message = document.getElementById('cart-message');
 
-            document.querySelectorAll('.open-modal').forEach(img => {
-                img.addEventListener('click', e => {
-                    e.preventDefault();
-                    modalImage.src = img.getAttribute('data-img');
-                    modal.classList.add('show');
-                });
-            });
+            btn.addEventListener('click', async () => {
+                const productId = btn.getAttribute('data-product-id');
+                const quantity = quantityInput.value;
 
-            modal.addEventListener('click', () => {
-                modal.classList.remove('show');
-                modalImage.src = '';
-            });
+                try {
+                    const response = await fetch(`/cart/add/${productId}`, {
+                        method: 'POST',
+                        headers: {
+                            'X-CSRF-TOKEN': window.csrfToken,
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ quantity })
+                    });
 
-            // Закрыть по Escape
-            document.addEventListener('keydown', e => {
-                if (e.key === "Escape" && modal.classList.contains('show')) {
-                    modal.classList.remove('show');
-                    modalImage.src = '';
+                    const result = await response.json();
+
+                    if (result.unauthorized) {
+                        const modal = new bootstrap.Modal(document.getElementById('loginModal'));
+                        modal.show();
+                    } else if (result.success) {
+                        message.innerText = result.message;
+                        message.style.display = 'block';
+                        setTimeout(() => message.style.display = 'none', 3000);
+                    }
+                } catch (err) {
+                    console.error('Ошибка:', err);
                 }
             });
         });
     </script>
+
 @endsection
