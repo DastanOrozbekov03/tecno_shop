@@ -1,0 +1,381 @@
+/* Общие стили для всех страниц */
+body {
+    background: var(--bg-light);
+    font-family: 'Inter', sans-serif;
+    color: #111827;
+    line-height: 1.6;
+}
+
+.custom-container {
+    max-width: 900px;
+    background: var(--card-bg);
+    padding: 2rem;
+    margin: 2.5rem auto;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+h1, h2 {
+    color: var(--primary);
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+}
+
+.btn-primary, .btn-success, .btn-home {
+    background: var(--accent);
+    border: none;
+    border-radius: 50px;
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+    color: #fff;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+}
+
+.btn-primary:hover, .btn-success:hover, .btn-home:hover {
+    background: #0E7490;
+    transform: translateY(-2px);
+}
+
+.btn-danger {
+    background: #EF4444;
+    border: none;
+    border-radius: 50px;
+    padding: 0.5rem 1rem;
+    font-weight: 600;
+    color: #fff;
+    transition: all 0.3s ease;
+}
+
+.btn-danger:hover {
+    background: #DC2626;
+    transform: translateY(-2px);
+}
+
+/* Таблицы */
+.custom-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-bottom: 1.5rem;
+    background: var(--card-bg);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.custom-table thead {
+    background: var(--primary-gradient);
+    color: #fff;
+}
+
+.custom-table th, .custom-table td {
+    padding: 1rem;
+    text-align: center;
+    border-bottom: 1px solid #E5E7EB;
+}
+
+.custom-table tbody tr:hover {
+    background: #E3F2FD;
+}
+
+.custom-table th.text-end, .custom-table td.text-end {
+    text-align: right;
+}
+
+/* Формы */
+.form-group {
+    margin-bottom: 1.25rem;
+}
+
+.form-label {
+    font-weight: 600;
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.form-control, .form-select {
+    border: 2px solid #D1D5DB;
+    border-radius: 12px;
+    padding: 0.75rem;
+    margin-bottom: 0.5rem;
+    transition: all 0.2s;
+    width: 100%;
+    font-size: 1rem;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 8px rgba(6, 182, 212, 0.3);
+    outline: none;
+}
+
+.form-control::placeholder {
+    color: #9CA3AF;
+}
+
+.error-message {
+    color: #EF4444;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+    margin-bottom: 0.5rem;
+}
+
+.hidden {
+    display: none;
+}
+
+/* Корзина */
+.cart-total {
+    font-weight: 700;
+    color: var(--accent);
+}
+
+.cart-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1.5rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.cart-quantity {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.cart-quantity input {
+    width: 60px;
+    text-align: center;
+    border: 2px solid #D1D5DB;
+    border-radius: 8px;
+    padding: 0.5rem;
+}
+
+.cart-quantity button {
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    transition: all 0.2s;
+}
+
+.cart-quantity button:hover {
+    background: #0E7490;
+}
+
+.cart-quantity button:disabled {
+    background: #D1D5DB;
+    cursor: not-allowed;
+}
+
+/* Оформление заказа */
+.checkout-form {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Подтверждение заказа */
+.success-message {
+    color: #15803D;
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.order-number {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin: 1rem 0;
+    text-align: center;
+}
+
+.instructions {
+    font-size: 1rem;
+    color: #4B5563;
+    line-height: 1.8;
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+/* Главная страница */
+.alert-warning {
+    background: #FEF3C7;
+    color: #B45309;
+    border: none;
+    border-radius: 12px;
+    padding: 1rem;
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.pagination .page-link {
+    border: none;
+    border-radius: 8px;
+    color: var(--primary);
+    margin: 0 4px;
+    transition: all 0.2s;
+}
+
+.pagination .page-link:hover {
+    background: var(--accent);
+    color: #fff;
+}
+
+.pagination .page-item.active .page-link {
+    background: var(--primary);
+    color: #fff;
+}
+
+/* Модальное окно */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    align-items: center;
+    justify-content: center;
+    z-index: 1050;
+}
+
+.modal-content {
+    position: relative;
+    max-width: 90%;
+    max-height: 90%;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.modal-content img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Профиль */
+.profile-table th, .profile-table td {
+    text-align: left;
+}
+
+/* Вход и регистрация */
+.auth-form {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.auth-form .form-group {
+    margin-bottom: 1.5rem;
+}
+
+.auth-form .btn-primary {
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 1.1rem;
+}
+
+.auth-links {
+    text-align: center;
+    margin-top: 1.5rem;
+    font-size: 0.95rem;
+    color: #4B5563;
+}
+
+.auth-links a {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.auth-links a:hover {
+    text-decoration: underline;
+}
+
+/* Адаптивность */
+@media (max-width: 992px) {
+    .custom-container {
+        max-width: 100%;
+        padding: 1.5rem;
+        margin: 1.5rem;
+    }
+
+    .custom-table th, .custom-table td {
+        padding: 0.75rem;
+        font-size: 0.875rem;
+    }
+
+    .auth-form {
+        max-width: 100%;
+    }
+
+    .cart-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+}
+
+@media (max-width: 576px) {
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    h2 {
+        font-size: 1.25rem;
+    }
+
+    .custom-table {
+        font-size: 0.875rem;
+    }
+
+    .custom-table th, .custom-table td {
+        padding: 0.5rem;
+    }
+
+    .form-control, .form-select {
+        padding: 0.5rem;
+        font-size: 0.875rem;
+    }
+
+    .btn-primary, .btn-success, .btn-home {
+        padding: 0.5rem 1rem;
+        font-size: 0.875rem;
+    }
+
+    .order-number {
+        font-size: 1.25rem;
+    }
+
+    .success-message {
+        font-size: 1rem;
+    }
+
+    .auth-form .btn-primary {
+        font-size: 1rem;
+    }
+
+    .cart-quantity input {
+        width: 50px;
+        padding: 0.25rem;
+    }
+
+    .cart-quantity button {
+        width: 25px;
+        height: 25px;
+        font-size: 0.875rem;
+    }
+}

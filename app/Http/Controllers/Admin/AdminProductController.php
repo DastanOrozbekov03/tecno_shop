@@ -1,6 +1,5 @@
 <?php
 
-// app/Http/Controllers/AdminProductController.php
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
@@ -10,10 +9,35 @@ use Illuminate\Http\Request;
 
 class AdminProductController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::latest()->with('category')->get();
-        return view('admin.products.index', compact('products'));
+        $query = Product::with('category');
+
+        // Поиск по названию
+        if ($request->filled('search')) {
+            $query->where('name', 'like', '%' . $request->search . '%');
+        }
+
+        // Фильтр по категории
+        if ($request->filled('category_id')) {
+            $query->where('category_id', $request->category_id);
+        }
+
+        // Сортировка
+        $sortColumn = $request->input('sort', 'created_at');
+        $sortDirection = $request->input('direction', 'desc');
+        $allowedColumns = ['name', 'price', 'created_at'];
+        if (in_array($sortColumn, $allowedColumns)) {
+            $query->orderBy($sortColumn, $sortDirection);
+        } else {
+            $query->latest();
+        }
+
+        // Пагинация
+        $products = $query->paginate(20)->withQueryString();
+        $categories = Category::all();
+
+        return view('admin.products.index', compact('products', 'categories'));
     }
 
     public function create()

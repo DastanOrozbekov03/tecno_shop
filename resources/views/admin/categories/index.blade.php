@@ -1,8 +1,14 @@
-@extends('layouts.app')
+@extends('layouts.admin')
+
+@section('title', 'Управление категориями')
 
 @section('content')
-    <div class="container mt-4">
-        <h1>Категории</h1>
+    <div class="mt-4">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h1>Категории</h1>
+            <a href="{{ route('admin.dashboard') }}" class="btn btn-secondary">Вернуться в админ-панель</a>
+        </div>
+
         <a href="{{ route('admin.categories.create') }}" class="btn btn-success mb-3">Добавить категорию</a>
 
         @if(session('success'))

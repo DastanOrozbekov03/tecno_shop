@@ -38,7 +38,7 @@
         </div>
     @endif
 
-    {{-- Модальное окно --}}
+    <!-- Модальное окно -->
     <div id="imageModal" class="modal" tabindex="-1" role="dialog">
         <div class="modal-content">
             <img id="modalImage" src="" alt="Увеличенное изображение">
@@ -49,40 +49,57 @@
 @section('scripts')
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+            const images = document.querySelectorAll('.open-modal');
+
+            images.forEach(img => {
+                img.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    modal.style.display = 'flex';
+                    modalImg.src = img.getAttribute('data-img');
+                });
+            });
+
+            modal.addEventListener('click', () => {
+                modal.style.display = 'none';
+            });
+
             const btn = document.getElementById('addToCartBtn');
             const quantityInput = document.getElementById('quantity');
             const message = document.getElementById('cart-message');
 
-            btn.addEventListener('click', async () => {
-                const productId = btn.getAttribute('data-product-id');
-                const quantity = quantityInput.value;
+            if (btn) {
+                btn.addEventListener('click', async () => {
+                    const productId = btn.getAttribute('data-product-id');
+                    const quantity = quantityInput.value;
 
-                try {
-                    const response = await fetch(`/cart/add/${productId}`, {
-                        method: 'POST',
-                        headers: {
-                            'X-CSRF-TOKEN': window.csrfToken,
-                            'Accept': 'application/json',
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({ quantity })
-                    });
+                    try {
+                        const response = await fetch(`/cart/add/${productId}`, {
+                            method: 'POST',
+                            headers: {
+                                'X-CSRF-TOKEN': window.csrfToken,
+                                'Accept': 'application/json',
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({ quantity })
+                        });
 
-                    const result = await response.json();
+                        const result = await response.json();
 
-                    if (result.unauthorized) {
-                        const modal = new bootstrap.Modal(document.getElementById('loginModal'));
-                        modal.show();
-                    } else if (result.success) {
-                        message.innerText = result.message;
-                        message.style.display = 'block';
-                        setTimeout(() => message.style.display = 'none', 3000);
+                        if (result.unauthorized) {
+                            const modal = new bootstrap.Modal(document.getElementById('loginModal'));
+                            modal.show();
+                        } else if (result.success) {
+                            message.innerText = result.message;
+                            message.style.display = 'block';
+                            setTimeout(() => message.style.display = 'none', 3000);
+                        }
+                    } catch (err) {
+                        console.error('Ошибка:', err);
                     }
-                } catch (err) {
-                    console.error('Ошибка:', err);
-                }
-            });
+                });
+            }
         });
     </script>
-
 @endsection

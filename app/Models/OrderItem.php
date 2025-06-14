@@ -9,15 +9,35 @@ class OrderItem extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['order_id', 'product_id', 'quantity', 'price'];
+    // Заполняемые поля для массового присвоения
+    protected $fillable = [
+        'order_id',
+        'product_id',
+        'quantity',
+        'price',
+    ];
 
+    /**
+     * Связь с моделью продукта
+     */
     public function product()
     {
         return $this->belongsTo(Product::class);
     }
 
+    /**
+     * Связь с моделью заказа
+     */
     public function order()
     {
         return $this->belongsTo(Order::class);
+    }
+
+    /**
+     * Получить общую стоимость позиции (цена * количество)
+     */
+    public function getTotalAttribute()
+    {
+        return $this->price * $this->quantity;
     }
 }
