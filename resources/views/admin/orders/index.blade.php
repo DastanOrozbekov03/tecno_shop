@@ -2,6 +2,43 @@
 
 @section('title', 'Управление заказами')
 
+@section('styles')
+    <style>
+        /* Пагинация */
+        .pagination {
+            justify-content: center;
+            margin-top: 1.5rem;
+            gap: 0.1rem;
+        }
+        .page-item .page-link {
+            font-size: 0.85rem !important;
+            padding: 0.25rem 0.5rem !important;
+            color: #2c3e50;
+            border: 1px solid #dee2e6;
+            border-radius: 0.375rem;
+            min-width: 30px;
+            text-align: center;
+            transition: background-color 0.2s, color 0.2s;
+        }
+        .page-item .page-link:hover {
+            background-color: #34495e;
+            color: #fff;
+            border-color: #34495e;
+        }
+        .page-item.active .page-link {
+            background-color: #2c3e50;
+            border-color: #2c3e50;
+            color: #fff;
+        }
+        .page-item.disabled .page-link {
+            color: #6c757d;
+            cursor: not-allowed;
+            background-color: #fff;
+            border-color: #dee2e6;
+        }
+    </style>
+@endsection
+
 @section('content')
     <div class="mt-4">
         <div class="d-flex justify-content-between align-items-center mb-3">
@@ -128,6 +165,6 @@
             </tbody>
         </table>
 
-        {{ $orders->links() }}
+        {{ $orders->links('vendor.pagination.custom') }}
     </div>
 @endsection

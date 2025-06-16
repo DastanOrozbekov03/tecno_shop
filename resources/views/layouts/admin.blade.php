@@ -44,6 +44,38 @@
                 margin-left: 0;
             }
         }
+        /* Стили для пагинации */
+        .pagination {
+            margin-top: 1rem;
+            justify-content: center;
+            gap: 0.1rem;
+        }
+        .pagination .page-item .page-link {
+            font-size: 0.85rem;
+            padding: 0.25rem 0.5rem;
+            color: #2c3e50;
+            border: 1px solid #dee2e6;
+            border-radius: 0.25rem;
+            transition: background-color 0.2s, color 0.2s;
+            min-width: 30px;
+            text-align: center;
+        }
+        .pagination .page-item .page-link:hover {
+            background-color: #34495e;
+            color: #fff;
+            border-color: #34495e;
+        }
+        .pagination .page-item.active .page-link {
+            background-color: #2c3e50;
+            border-color: #2c3e50;
+            color: #fff;
+        }
+        .pagination .page-item.disabled .page-link {
+            color: #6c757d;
+            cursor: not-allowed;
+            background-color: #fff;
+            border-color: #dee2e6;
+        }
     </style>
 </head>
 <body>

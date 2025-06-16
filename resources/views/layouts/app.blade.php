@@ -33,9 +33,11 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            background-color: var(--bg-light);
+            background: url('/images/background/naturmort-besprovodnyh-kiberpank-nausnikov.jpg') no-repeat center center fixed;
+            background-size: cover;
             color: #111827;
             line-height: 1.6;
+            margin: 0;
         }
 
         /* Navbar */
@@ -46,10 +48,17 @@
         }
 
         .navbar-brand {
+            display: flex;
+            align-items: center;
             color: #FFFFFF !important;
             font-weight: 700;
             font-size: 1.5rem;
             transition: transform 0.2s;
+        }
+
+        .navbar-brand img {
+            height: 40px;
+            margin-right: 10px;
         }
 
         .navbar-brand:hover {
@@ -236,6 +245,84 @@
             font-weight: bold;
         }
 
+        /* Pagination */
+        .pagination {
+            justify-content: center;
+            margin-top: 1.5rem;
+            gap: 0.1rem;
+        }
+
+        .page-item .page-link {
+            font-size: 0.85rem !important;
+            padding: 0.25rem 0.5rem !important;
+            color: #2c3e50;
+            border: 1px solid #dee2e6;
+            border-radius: 0.375rem;
+            min-width: 30px;
+            text-align: center;
+            transition: background-color 0.2s, color 0.2s;
+        }
+
+        .page-item .page-link:hover {
+            background-color: #34495e;
+            color: #fff;
+            border-color: #34495e;
+        }
+
+        .page-item.active .page-link {
+            background-color: #2c3e50;
+            border-color: #2c3e50;
+            color: #fff;
+        }
+
+        .page-item.disabled .page-link {
+            color: #6c757d;
+            cursor: not-allowed;
+            background-color: #fff;
+            border-color: #dee2e6;
+        }
+
+        /* Banner Footer Section */
+        #banner-footer {
+            background: var(--primary-gradient);
+            padding: 3rem 0;
+            color: #FFFFFF;
+            text-align: center;
+        }
+
+        #banner-footer h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        #banner-footer .btn-primary {
+            background: var(--accent);
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 500;
+            transition: transform 0.2s, background 0.2s;
+        }
+
+        #banner-footer .btn-primary:hover {
+            background: #0E7490;
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg-light);
+            padding: 1.5rem 0;
+            color: var(--text-muted);
+            text-align: center;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 0.875rem;
+        }
+
         /* Responsive Design */
         @media (max-width: 992px) {
             .search-form {
@@ -254,11 +341,19 @@
                 padding: 10px;
                 margin-top: 10px;
             }
+
+            #banner-footer h2 {
+                font-size: 1.5rem;
+            }
         }
 
         @media (max-width: 576px) {
             .navbar-brand {
                 font-size: 1.25rem;
+            }
+
+            .navbar-brand img {
+                height: 30px;
             }
 
             .search-form {
@@ -291,6 +386,19 @@
             .main-content {
                 padding: 1.5rem;
             }
+
+            #banner-footer {
+                padding: 2rem 0;
+            }
+
+            #banner-footer h2 {
+                font-size: 1.25rem;
+            }
+
+            #banner-footer .btn-primary {
+                padding: 0.5rem 1rem;
+                font-size: 0.875rem;
+            }
         }
     </style>
 </head>
@@ -299,7 +407,11 @@
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg sticky-top">
     <div class="container">
-        <a class="navbar-brand" href="{{ route('home') }}">Электролюкс</a>
+        <a class="navbar-brand" href="{{ route('home') }}">
+            <img src="{{ asset('images/electro.png') }}" alt="Электролюкс Логотип">
+
+            Электролюкс
+        </a>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -367,6 +479,21 @@
 <div class="container main-content mt-5" data-aos="fade-up">
     @yield('content')
 </div>
+
+<!-- Banner Footer Section -->
+<section id="banner-footer">
+    <div class="container text-center">
+        <h2 class="text-white">Готовы начать покупки?</h2>
+        <a href="{{ route('home') }}" class="btn-primary">Перейти к товарам</a>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer>
+    <div class="container text-center">
+        <p>© 2025 Электролюкс. Все права защищены.</p>
+    </div>
+</footer>
 
 <!-- Bootstrap JS + Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

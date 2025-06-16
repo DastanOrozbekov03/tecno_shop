@@ -16,7 +16,7 @@
         /* Таблица */
         .table {
             width: 100%;
-            background: var(--card-bg);
+            background: #fff;
             border-radius: 12px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
             overflow: hidden;
@@ -24,7 +24,7 @@
         }
 
         .table thead {
-            background: var(--primary-gradient);
+            background: linear-gradient(90deg, #2c3e50, #34495e);
             color: #FFFFFF;
         }
 
@@ -36,7 +36,7 @@
         }
 
         .table tbody tr:nth-child(even) {
-            background: var(--bg-light);
+            background: #F9FAFB;
         }
 
         .table tbody tr:hover {
@@ -76,43 +76,37 @@
         .pagination {
             justify-content: center;
             margin-top: 1.5rem;
-            font-size: 0.875rem; /* Компактный размер текста */
+            gap: 0.1rem;
         }
 
         .page-item .page-link {
-            padding: 0.25rem 0.5rem; /* Уменьшенные отступы */
-            font-size: 0.875rem;
+            font-size: 0.85rem !important;
+            padding: 0.25rem 0.5rem !important;
+            color: #2c3e50;
+            border: 1px solid #dee2e6;
             border-radius: 0.375rem;
-            margin: 0 2px;
-            color: var(--text-muted);
-            border: 1px solid #D1D5DB;
-            background: var(--card-bg);
-            line-height: 1.5;
-            min-width: 1.5rem; /* Минимальная ширина для стрелок */
+            min-width: 30px;
             text-align: center;
-        }
-
-        .page-item.active .page-link {
-            background: var(--primary-gradient);
-            color: #FFFFFF;
-            border-color: transparent;
+            transition: background-color 0.2s, color 0.2s;
         }
 
         .page-item .page-link:hover {
-            background: #E5E7EB;
-            border-color: #D1D5DB;
+            background-color: #34495e;
+            color: #fff;
+            border-color: #34495e;
         }
 
-        /* Стрелки пагинации */
-        .page-item:first-child .page-link,
-        .page-item:last-child .page-link {
-            font-size: 0.875rem; /* Уменьшенный размер стрелок */
-            padding: 0.25rem 0.5rem;
+        .page-item.active .page-link {
+            background-color: #2c3e50;
+            border-color: #2c3e50;
+            color: #fff;
         }
 
-        .page-item:first-child .page-link::before,
-        .page-item:last-child .page-link::after {
-            font-size: 0.875rem; /* Уменьшенный размер иконок, если используются псевдоэлементы */
+        .page-item.disabled .page-link {
+            color: #6c757d;
+            cursor: not-allowed;
+            background-color: #fff;
+            border-color: #dee2e6;
         }
 
         /* Форма поиска */
@@ -124,7 +118,7 @@
         }
 
         .form-control::placeholder {
-            color: var(--text-muted);
+            color: #6c757d;
         }
 
         /* Переопределяем main-content */
@@ -152,8 +146,8 @@
                 font-size: 0.75rem;
             }
             .page-item .page-link {
-                padding: 0.2rem 0.4rem;
-                font-size: 0.75rem;
+                padding: 0.2rem 0.4rem !important;
+                font-size: 0.75rem !important;
             }
         }
     </style>
@@ -249,6 +243,6 @@
             </tbody>
         </table>
 
-        {{ $products->links() }}
+        {{ $products->links('vendor.pagination.custom') }}
     </div>
 @endsection
